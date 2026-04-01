@@ -50,45 +50,45 @@ Everything runs on CPU. This is intentional -- the point is to test what's achie
 
 ### Round 1: the original 11
 
-**Qwen 2.5 (3B, 1.5B, 0.5B) -- the scaling ladder.** Alibaba's Qwen 2.5 is one of the strongest open model families for tool-calling at small sizes. Testing all three sizes gives a clean read on how capability scales with parameters.
+**Qwen 2.5 ([3B](https://ollama.com/library/qwen2.5:3b), [1.5B](https://ollama.com/library/qwen2.5:1.5b), [0.5B](https://ollama.com/library/qwen2.5:0.5b)) -- the scaling ladder.** Alibaba's Qwen 2.5 is one of the strongest open model families for tool-calling at small sizes. Testing all three sizes gives a clean read on how capability scales with parameters.
 
-**LLaMA 3.2:3B -- Meta's contender.** The obvious comparison point. Native tool-calling support in Ollama, widely used, the model most people would reach for first.
+**[LLaMA 3.2:3B](https://ollama.com/library/llama3.2:3b) -- Meta's contender.** The obvious comparison point. Native tool-calling support in Ollama, widely used, the model most people would reach for first.
 
-**SmolLM2:1.7B -- the underdog.** HuggingFace's purpose-built small model. At 1.7B parameters it sits between Qwen's 1.5B and 3B. Tests whether the "small model" space has dark horses.
+**[SmolLM2:1.7B](https://ollama.com/library/smollm2:1.7b) -- the underdog.** HuggingFace's purpose-built small model. At 1.7B parameters it sits between Qwen's 1.5B and 3B. Tests whether the "small model" space has dark horses.
 
-**Ministral-3:3B -- the EU sovereignty candidate.** Mistral's 3B edge model, Apache 2.0 licensed. The model you'd pick for European-sourced tool-calling.
+**[Ministral-3:3B](https://ollama.com/library/ministral-3:3b) -- the EU sovereignty candidate.** Mistral's 3B edge model, Apache 2.0 licensed. The model you'd pick for European-sourced tool-calling.
 
-**DeepSeek-R1:1.5B -- the reasoning distillation.** DeepSeek's distilled chain-of-thought model. Does thinking before answering improve restraint or just burn tokens?
+**[DeepSeek-R1:1.5B](https://ollama.com/library/deepseek-r1:1.5b) -- the reasoning distillation.** DeepSeek's distilled chain-of-thought model. Does thinking before answering improve restraint or just burn tokens?
 
-**Gemma3:1B -- Google's smallest.** Sliding window attention architecture at 1B parameters. Tests the floor for tool-calling capability.
+**[Gemma3:1B](https://ollama.com/library/gemma3:1b) -- Google's smallest.** Sliding window attention architecture at 1B parameters. Tests the floor for tool-calling capability.
 
-**Phi4-mini:3.8B -- Microsoft's reasoning model.** Slightly larger than the 3B tier but trained specifically for structured reasoning. Tests whether Microsoft's approach translates to tool-calling.
+**[Phi4-mini:3.8B](https://ollama.com/library/phi4-mini:3.8b) -- Microsoft's reasoning model.** Slightly larger than the 3B tier but trained specifically for structured reasoning. Tests whether Microsoft's approach translates to tool-calling.
 
-**BitNet b1.58-3B -- the 1-bit base model.** Microsoft's 1.58-bit quantisation ({-1, 0, 1} ternary weights). A base model without instruction tuning, included as a control.
+**[BitNet b1.58-3B](https://huggingface.co/1bitLLM/bitnet_b1_58-3B) -- the 1-bit base model.** Microsoft's 1.58-bit quantisation ({-1, 0, 1} ternary weights). A base model without instruction tuning, included as a control.
 
-**BitNet b1.58-2B-4T -- the 1-bit instruction-tuned model.** Same ternary architecture, instruction-tuned on 4 trillion tokens. Answers the question: can ternary weights produce structured output?
+**[BitNet b1.58-2B-4T](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf) -- the 1-bit instruction-tuned model.** Same ternary architecture, instruction-tuned on 4 trillion tokens. Answers the question: can ternary weights produce structured output?
 
 ### Round 2: community-requested models
 
 After the [Reddit post](https://www.reddit.com/r/LocalLLaMA/comments/1qyg10z/), the community requested specific models. Every viable suggestion was added.
 
-**Qwen 3 (1.7B, 0.6B) -- the most-requested family.** Six separate users asked for Qwen3. Both sizes have built-in thinking capability. The 0.6B is the smallest model in the benchmark with native tool support. Tests whether the Qwen2.5 → Qwen3 generation jump matters for tool calling. (The 4B was tested in Round 2 but removed in Round 3 due to impractical latency -- 63s per prompt on CPU.)
+**Qwen 3 ([1.7B](https://ollama.com/library/qwen3:1.7b), [0.6B](https://ollama.com/library/qwen3:0.6b)) -- the most-requested family.** Six separate users asked for Qwen3. Both sizes have built-in thinking capability. The 0.6B is the smallest model in the benchmark with native tool support. Tests whether the Qwen2.5 → Qwen3 generation jump matters for tool calling. (The 4B was tested in Round 2 but removed in Round 3 due to impractical latency -- 63s per prompt on CPU.)
 
-**FunctionGemma (270M) -- the specialist.** A 270M fine-tune built specifically for function calling. Two users predicted "very high performance per compute." At 270M it's the smallest model in the benchmark. Tests whether purpose-built fine-tuning beats general instruction tuning.
+**[FunctionGemma](https://ollama.com/library/functiongemma) (270M) -- the specialist.** A 270M fine-tune built specifically for function calling. Two users predicted "very high performance per compute." At 270M it's the smallest model in the benchmark. Tests whether purpose-built fine-tuning beats general instruction tuning.
 
-**Granite 3.3:2B and Granite 4:3B -- IBM's generational test.** One user said Granite4 "just felt good" for tool calling. Including both generations tests whether IBM's model improvements translate to measurable gains on the same benchmark.
+**[Granite 3.3:2B](https://ollama.com/library/granite3.3:2b) and [Granite 4:3B](https://ollama.com/library/granite4:3b) -- IBM's generational test.** One user said Granite4 "just felt good" for tool calling. Including both generations tests whether IBM's model improvements translate to measurable gains on the same benchmark.
 
-**LLaMA 3.2:1B -- Meta's smallest.** The 1B sibling of the Round 1 LLaMA 3.2:3B. Tests how far Meta's tool-calling training extends down the size ladder.
+**[LLaMA 3.2:1B](https://ollama.com/library/llama3.2:1b) -- Meta's smallest.** The 1B sibling of the Round 1 LLaMA 3.2:3B. Tests how far Meta's tool-calling training extends down the size ladder.
 
-**LFM 2.5:1.2B (Liquid AI) -- the architectural outlier.** A state-space hybrid model, not a transformer. Three users recommended it, with one calling it "a fantastic job for its size." Required a new llama.cpp backend since it's not available through Ollama. Tests whether non-transformer architectures can do tool calling.
+**[LFM 2.5:1.2B](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF) (Liquid AI) -- the architectural outlier.** A state-space hybrid model, not a transformer. Three users recommended it, with one calling it "a fantastic job for its size." Required a new llama.cpp backend since it's not available through Ollama. Tests whether non-transformer architectures can do tool calling.
 
-**SmolLM3:3B -- the successor.** HuggingFace's follow-up to SmolLM2 with thinking capability. Not yet in Ollama's official library (pulled from HuggingFace GGUF). Tests generational improvement within HuggingFace's small model line.
+**[SmolLM3:3B](https://ollama.com/library/smollm3:3b) -- the successor.** HuggingFace's follow-up to SmolLM2 with thinking capability. Not yet in Ollama's official library (pulled from HuggingFace GGUF). Tests generational improvement within HuggingFace's small model line.
 
-**Jan v3:4B (jan.ai) -- the fine-tune.** A Qwen3-based fine-tune recommended by two users. Tests whether community fine-tuning on top of Qwen3 improves tool-calling behaviour.
+**[Jan v3:4B](https://ollama.com/library/jan-v3:4b) (jan.ai) -- the fine-tune.** A Qwen3-based fine-tune recommended by two users. Tests whether community fine-tuning on top of Qwen3 improves tool-calling behaviour.
 
 ### Round 3: late addition
 
-**Nanbeige4.1:3B (Nanbeige Lab) -- the reasoning model.** A community-requested Chinese reasoning model built on Nanbeige4-3B-Base through SFT and RL. Claims to rival much larger models on preference alignment benchmarks. Not available in Ollama's official library, so it runs via llama.cpp with a Q4_K_M GGUF quantisation. Due to extremely high CPU latency (~23s per prompt), it was run 3 times instead of 20; its scores should be treated as preliminary.
+**[Nanbeige4.1:3B](https://huggingface.co/Edge-Quant/Nanbeige4.1-3B-Q4_K_M-GGUF) (Nanbeige Lab) -- the reasoning model.** A community-requested Chinese reasoning model built on Nanbeige4-3B-Base through SFT and RL. Claims to rival much larger models on preference alignment benchmarks. Not available in Ollama's official library, so it runs via llama.cpp with a Q4_K_M GGUF quantisation. Due to extremely high CPU latency (~23s per prompt), it was run 3 times instead of 20; its scores should be treated as preliminary.
 
 ## The prompts
 
