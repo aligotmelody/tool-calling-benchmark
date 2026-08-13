@@ -2,19 +2,31 @@ import json
 from datetime import datetime
 from collections import defaultdict
 from typing import Dict, List, Any
+from pathlib import Path
 
-def parse_benchmark_results(json_file_path: str, output_md_path: str = "benchmark_results.md"):
+def parse_benchmark_results(json_file_path: str):
     """
     Parse benchmark JSON results and generate a readable Markdown report.
     
     Args:
         json_file_path: Path to the JSON file containing benchmark results
-        output_md_path: Path where the Markdown report will be saved
+    
+    Returns:
+        str: Path to the generated Markdown file
     """
     
-    # Load the JSON data
-    with open(json_file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    
+    
+    output_md_path = f"benchmark_result_{Path(json_file_path).stem}.md"
+
+    
+    try:
+        with open(json_file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Benchmark input file not found: {json_file_path}")
+    except json.JSONDecodeError as e:
+        raise json.JSONDecodeError(f"Invalid JSON format in {json_file_path}: {e.msg}", e.doc, e.pos)
     
     # Initialize markdown content
     md_content = []
@@ -176,27 +188,28 @@ def parse_benchmark_results(json_file_path: str, output_md_path: str = "benchmar
             f"{success_rate:.1f}% | {avg_latency:.1f} |"
         )
     
-    # Write to file
-    with open(output_md_path, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(md_content))
+    # Write to file 
+    try:
+        
+        with open(output_md_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(md_content))
+    except IOError as e:
+        raise IOError(f"Failed to write output file {output_md_path}: {e}")
     
     print(f"✅ Benchmark report generated: {output_md_path}")
     return output_md_path
 
 # Example usage
 if __name__ == "__main__":
-    # Replace with your JSON file path
+    
     import sys
-    # json_file = "benchmark_results.json"  # Change this to your file path
+    
     if len(sys.argv) > 1:
         json_file = sys.argv[1]
         try:
-            output_file = parse_benchmark_results(json_file, f"benchmark_report_{json_file}.md")
-            print(f"Report saved to: {output_file}")
-        except FileNotFoundError:
-            print(f"Error: File '{json_file}' not found. Please check the path.")
-        except json.JSONDecodeError as e:
-            print(f"Error: Invalid JSON format - {e}")
+            output_file = parse_benchmark_results(json_file)
+        except FileNotFoundError as e :
+            print(f"Error: File '{e.filename}' not found. Please check the path.")
         except Exception as e:
             print(f"Error: {e}")
     else:
