@@ -208,7 +208,7 @@ if __name__ == "__main__":
         json_file = sys.argv[1]
         try:
             output_file = parse_benchmark_results(json_file)
-        except FileNotFoundError :
+        except FileNotFoundError as e :
             print(f"Error: {e}")
         except Exception as e:
             print(f"Error: {e}")
